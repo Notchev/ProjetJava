@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-/*package Controler;
+package Controler;
 import Vue.EcoleGraphique;
 import java.awt.Component;
 import java.awt.Graphics;
@@ -25,37 +25,50 @@ import javax.swing.JFrame;
  
 import Vue.Fond;
 import Vue.Bouton;
+import java.sql.SQLException;
 /**
  *
  * @author sarahkardache
  */
-/*public class Test_projet {
+public class Test_projet {
    
-      private static EcoleGraphique graphique;
+    //  private static EcoleGraphique graphique;
 
     /**
      * @param args the command line arguments
+     * @throws java.lang.ClassNotFoundException
      */
-   /* public static void main(String[] args) {
-        // TODO code application logic here
-        JFrame frame = new JFrame();
-        //graphique = new EcoleGraphique();     
-        //graphique.affichage(frame); 
-
-        Fond back = new Fond("data/back.jpg");
-        Bouton test = new Bouton();
-         
-        frame.setTitle("Gestion d'une école");
-        frame.setSize(800, 600);
-        frame.setLocationRelativeTo(null);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(back);
-        frame.setVisible(true);
-        JButton button1= new JButton("déplacez-moi");
-        button1.setBounds(350,300,150,40);
- 
-        back.add(test);
+      @SuppressWarnings("empty-statement")
+    public static void main(String[] args) 
+    {
+          try {
+              Connexion connection = new Connexion("Ecole","root","root");
+              
+              //public Connexion(String nameDatabase, String loginDatabase, String passwordDatabase)
+              // TODO code application logic here
+              /* JFrame frame = new JFrame();
+              //graphique = new EcoleGraphique();
+              //graphique.affichage(frame);
+              
+              Fond back = new Fond("data/back.jpg");
+              Bouton test = new Bouton();
+              
+              frame.setTitle("Gestion d'une école");
+              frame.setSize(800, 600);
+              frame.setLocationRelativeTo(null);
+              frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+              frame.add(back);
+              frame.setVisible(true);
+              JButton button1= new JButton("déplacez-moi");
+              button1.setBounds(350,300,150,40);
+              
+              //back.add(test);
+          */        } catch (SQLException ex) {
+              Logger.getLogger(Test_projet.class.getName()).log(Level.SEVERE, null, ex);
+          } catch (ClassNotFoundException ex) {
+              Logger.getLogger(Test_projet.class.getName()).log(Level.SEVERE, null, ex);
+          }
     }
     
 }
-*/
+
