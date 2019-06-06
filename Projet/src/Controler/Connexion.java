@@ -5,14 +5,13 @@
  */
 package Controler;
 
-
-
 /*
  * 
  * Librairies importées
  */
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * 
@@ -64,13 +63,16 @@ public class Connexion {
         Class.forName("com.mysql.jdbc.Driver");
 
         // url de connexion "jdbc:mysql://localhost:3305/usernameECE"
-        String urlDatabase = "jdbc:mysql://localhost/" + nameDatabase;
+        String urlDatabase = "jdbc:mysql://localhost:8889/" + nameDatabase;
 
         //création d'une connexion JDBC à la base 
         conn = DriverManager.getConnection(urlDatabase, loginDatabase, passwordDatabase);
 
         // création d'un ordre SQL (statement)
         stmt = conn.createStatement();
+        //A AFFICHER DANS UN JFRAME 
+        System.out.println("Connexion reussie");
+
     }
 
     /**
@@ -105,7 +107,6 @@ public class Connexion {
         }
         */
     
-
     /**
      * Méthode qui ajoute la table en parametre dans son ArrayList
      *
@@ -220,4 +221,48 @@ public class Connexion {
     public void executeUpdate(String requeteMaj) throws SQLException {
         stmt.executeUpdate(requeteMaj);
     }
+    
+    public void Ajout()
+	{
+            int id = 0 ; 
+            String nom = null;
+            Scanner scan = new Scanner(System.in);
+            ///ATTENTION IL FAUT DEMANDER AUX MECS COMMENT ON FAIT PARCE QUE L'AJOUT VA FALLOIR LE FAIRE PAR TABLE HE MERCE.
+                try {
+                    
+                   // stmt = conn.createStatement();
+                System.out.println("Entrez l'id de l'ecole :");
+                id = scan.nextInt();
+                System.out.println("Entrez le nom de l'ecole :");
+                nom = scan.next();
+		String requete ="INSERT INTO Ecole(id_ecole, nom_ecole) VALUES(";
+                requete += id;
+                requete +=",'";
+                requete += nom;
+                requete += "')";
+                System.out.println(requete);
+
+                
+                stmt.executeUpdate(requete);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+}
+
+public void Supprimer()
+{
+///ATTENTION IL FAUT DEMANDER AUX MECS COMMENT ON FAIT PARCE QUE L'AJOUT VA FALLOIR LE FAIRE PAR TABLE HE MERCE.
+                try {
+                   // stmt = conn.createStatement();
+                
+ 
+String requete= "DELETE FROME Ecole (id_ecole,nom_ecole) WHERE (id_ecole==1)";
+	
+		stmt.executeUpdate(requete);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+}
 }

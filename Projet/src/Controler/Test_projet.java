@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package Controler;
 import Vue.EcoleGraphique;
 import java.awt.Component;
@@ -22,7 +23,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.JFrame;
- 
+ import java.util.Scanner;
 import Vue.Fond;
 import Vue.Bouton;
 import java.sql.SQLException;
@@ -42,8 +43,24 @@ public class Test_projet {
     public static void main(String[] args) 
     {
           try {
-              Connexion connection = new Connexion("Ecole","root","root");
-              
+            int reponse=0;
+            Connexion connection = new Connexion("Ecole","root","root");
+            ArrayList essai = new ArrayList();
+            essai = connection.remplirChampsTable("Ecole");
+            for (int i = 0; i < essai.size(); i++) {
+            System.out.println(essai.get(i));
+            System.out.println("Voulez-vous ajouter une ecole ?  ");
+            Scanner sc = new Scanner(System.in);
+            reponse = sc.nextInt();
+            if (reponse==1)
+            {
+                        connection.Ajout();
+            }
+            if (reponse==0)
+            {
+                connection.Supprimer();
+            }
+        } 
               //public Connexion(String nameDatabase, String loginDatabase, String passwordDatabase)
               // TODO code application logic here
               /* JFrame frame = new JFrame();
