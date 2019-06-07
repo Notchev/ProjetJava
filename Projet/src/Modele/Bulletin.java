@@ -8,6 +8,7 @@ package Modele;
 /**
  *
  * @author sarahkardache
+ * 
  */
 public class Bulletin  {
      

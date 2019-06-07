@@ -7,16 +7,19 @@ package Controler;
 
 /*
  * 
- * Librairies importées
+ * Librairies importées par notre groupe pour que le programme fonctionne
  */
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import Modele.Ecole;
+
 /**
- * 
- * Connexion a votre BDD locale ou à distance sur le serveur de l'ECE via le tunnel SSH
- * 
+ *
+ * Connexion a votre BDD locale ou à distance sur le serveur de l'ECE via le
+ * tunnel SSH
+ *
  * @author segado
  */
 public class connexion_ecole {
@@ -42,6 +45,8 @@ public class connexion_ecole {
      */
     public ArrayList<String> requetesMaj = new ArrayList<>();
 
+    public ArrayList<Ecole> listeEcoles = new ArrayList<>();
+
     /**
      * Constructeur avec 3 paramètres : nom, login et password de la BDD locale
      *
@@ -50,14 +55,12 @@ public class connexion_ecole {
      * @param passwordDatabase
      * @throws java.sql.SQLException
      * @throws java.lang.ClassNotFoundException
-     * 
+     *
      */
-    
-    public connexion_ecole()
-    {
-       //constructeur par defaut trop cool 
+    public connexion_ecole() {
+        //constructeur par defaut trop cool 
     }
-    
+
     public connexion_ecole(String nameDatabase, String loginDatabase, String passwordDatabase) throws SQLException, ClassNotFoundException {
         // chargement driver "com.mysql.jdbc.Driver"
         Class.forName("com.mysql.jdbc.Driver");
@@ -72,12 +75,34 @@ public class connexion_ecole {
         stmt = conn.createStatement();
         //A AFFICHER DANS UN JFRAME 
         System.out.println("Connexion reussie");
+        Ecole E = null;
+        String recup_id;
+        String requete;
+        String recup_tot;
+
+        requete = "SELECT * FROM Ecole";
+
+        PreparedStatement preparedStatement = conn.prepareStatement(requete);
+
+        rset = preparedStatement.executeQuery();
+
+        while (rset.next()) {
+
+            E = new Ecole(rset.getInt("id_ecole"),rset.getString("nom_ecole"));
+           
+            System.out.println(E.id_Ecole);
+            System.out.println(E.nom_Ecole);
+           
+           listeEcoles.add(E);
+           
+        }
 
     }
 
     /**
      * Constructeur avec 4 paramètres : username et password ECE, login et
      * password de la BDD à distance sur le serveur de l'ECE
+     *
      * @param usernameECE
      * @param passwordECE
      * @param loginDatabase
@@ -86,13 +111,13 @@ public class connexion_ecole {
      * @throws java.lang.ClassNotFoundException
      */
     //public Connexion(String usernameECE, String passwordECE, String loginDatabase, String passwordDatabase) throws SQLException, ClassNotFoundException {
-        // chargement driver "com.mysql.jdbc.Driver"
-     //  Class.forName("com.mysql.jdbc.Driver");
+    // chargement driver "com.mysql.jdbc.Driver"
+    //  Class.forName("com.mysql.jdbc.Driver");
 //System.out.println("Connexion reussie");
-        // Connexion via le tunnel SSH avec le username et le password ECE
-        //SSHTunnel ssh = new SSHTunnel(usernameECE, passwordECE);
+    // Connexion via le tunnel SSH avec le username et le password ECE
+    //SSHTunnel ssh = new SSHTunnel(usernameECE, passwordECE);
 
-       /* if (ssh.connect()) {
+    /* if (ssh.connect()) {
             System.out.println("Connexion reussie");
 
             // url de connexion "jdbc:mysql://localhost:3305/usernameECE"
@@ -105,8 +130,7 @@ public class connexion_ecole {
             stmt = conn.createStatement();
 
         }
-        */
-    
+     */
     /**
      * Méthode qui ajoute la table en parametre dans son ArrayList
      *
@@ -127,8 +151,7 @@ public class connexion_ecole {
     }
 
     /**
-     * Méthode qui ajoute la requete de MAJ en parametre dans son
-     * ArrayList
+     * Méthode qui ajoute la requete de MAJ en parametre dans son ArrayList
      *
      * @param requete
      */
@@ -174,8 +197,9 @@ public class connexion_ecole {
 
     /**
      * Methode qui retourne l'ArrayList des champs de la requete en parametre
+     *
      * @param requete
-     * @return 
+     * @return
      * @throws java.sql.SQLException
      */
     public ArrayList remplirChampsRequete(String requete) throws SQLException {
@@ -215,83 +239,78 @@ public class connexion_ecole {
 
     /**
      * Méthode qui execute une requete de MAJ en parametre
+     *
      * @param requeteMaj
      * @throws java.sql.SQLException
      */
     public void executeUpdate(String requeteMaj) throws SQLException {
         stmt.executeUpdate(requeteMaj);
     }
-    
-    public void AjoutEcole(int id, String nom)
-	{
-           
-            ///ATTENTION IL FAUT DEMANDER AUX MECS COMMENT ON FAIT PARCE QUE L'AJOUT VA FALLOIR LE FAIRE PAR TABLE HE MERCE.
-                try {
-                    
-                   // stmt = conn.createStatement();
-               
-		String requete ="INSERT INTO Ecole(id_ecole, nom_ecole) VALUES(";
-                requete += id;
-                requete +=",'";
-                requete += nom;
-                requete += "')";
-                System.out.println(requete);
 
-                
-                    int executeUpdate = stmt.executeUpdate(requete);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-}
-      public void SupprimerEcole(int id)
-	{
-           
-            ///ATTENTION IL FAUT DEMANDER AUX MECS COMMENT ON FAIT PARCE QUE L'AJOUT VA FALLOIR LE FAIRE PAR TABLE HE MERCE.
-                try {
-                    
-                   // stmt = conn.createStatement();
-                               System.out.println("ok");
+    public void AjoutEcole(int id, String nom) {
 
-		String requete ="DELETE FROM Ecole WHERE id_ecole=";
-                          System.out.println("lol");
+        ///ATTENTION IL FAUT DEMANDER AUX MECS COMMENT ON FAIT PARCE QUE L'AJOUT VA FALLOIR LE FAIRE PAR TABLE HE MERCE.
+        try {
 
-                requete += id;
-                System.out.println(requete);
+            // stmt = conn.createStatement();
+            String requete = "INSERT INTO Ecole(id_ecole, nom_ecole) VALUES(";
+            requete += id;
+            requete += ",'";
+            requete += nom;
+            requete += "')";
+            System.out.println(requete);
 
-                
-                    int executeUpdate = stmt.executeUpdate(requete);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-}
-      
-      public void ModifierEcole(int id, String nom)
-	{
-           
-            ///ATTENTION IL FAUT DEMANDER AUX MECS COMMENT ON FAIT PARCE QUE L'AJOUT VA FALLOIR LE FAIRE PAR TABLE HE MERCE.
-                try {
-                    
-                   // stmt = conn.createStatement();
-                               System.out.println("ok");
-                               
-		String requete;
-                    requete = "UPDATE Ecole SET nom_ecole =' ";
-                    requete+= nom;
-                    requete += "' WHERE id_ecole = " ; 
-            
-                          System.out.println("lol");
+            int executeUpdate = stmt.executeUpdate(requete);
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
 
-                requete += id;
-                System.out.println(requete);
-                
-                int executeUpdate = stmt.executeUpdate(requete);
-                    
-          
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-}
+    public void SupprimerEcole(int id) {
+
+        ///ATTENTION IL FAUT DEMANDER AUX MECS COMMENT ON FAIT PARCE QUE L'AJOUT VA FALLOIR LE FAIRE PAR TABLE HE MERCE.
+        try {
+
+            // stmt = conn.createStatement();
+            System.out.println("ok");
+
+            String requete = "DELETE FROM Ecole WHERE id_ecole=";
+            System.out.println("lol");
+
+            requete += id;
+            System.out.println(requete);
+
+            int executeUpdate = stmt.executeUpdate(requete);
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+    public void ModifierEcole(int id, String nom) {
+
+        ///ATTENTION IL FAUT DEMANDER AUX MECS COMMENT ON FAIT PARCE QUE L'AJOUT VA FALLOIR LE FAIRE PAR TABLE HE MERCE.
+        try {
+
+            // stmt = conn.createStatement();
+            System.out.println("ok");
+
+            String requete;
+            requete = "UPDATE Ecole SET nom_ecole =' ";
+            requete += nom;
+            requete += "' WHERE id_ecole = ";
+
+            System.out.println("lol");
+
+            requete += id;
+            System.out.println(requete);
+
+            int executeUpdate = stmt.executeUpdate(requete);
+
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
 }

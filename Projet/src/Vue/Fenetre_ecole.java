@@ -70,7 +70,8 @@ public class Fenetre_ecole extends JFrame{
 	this.setTitle("Informations école");
     this.setSize(600, 400);
     this.setLocationRelativeTo(null); 
-    	   	    
+    
+       
     ////////////////////////////////////// panneau
     
     JPanel pan= new JPanel();
@@ -100,6 +101,24 @@ public class Fenetre_ecole extends JFrame{
 
     
     pan.add(texte);
+    
+    JPanel p_infos= new JPanel();
+    p_infos.setBackground(Color.WHITE);
+    
+    JLabel label0;
+    for(int n=0; n < NosEcoles.listeEcoles.size(); n++){
+    	label0 = new JLabel(Integer.toString(NosEcoles.listeEcoles.get(n).id_Ecole));
+    	label0.setPreferredSize(new Dimension(280, 15));
+    	p_infos.add(label0);
+        
+        label0 = new JLabel(NosEcoles.listeEcoles.get(n).nom_Ecole);
+        label0.setPreferredSize(new Dimension(280, 15));
+    	p_infos.add(label0);
+    	
+    	}
+    
+    
+	p_infos.setPreferredSize(new Dimension(600,NosEcoles.listeEcoles.size()*23));
 
    
     p_ajouter1.add(t_ajouter);
@@ -121,7 +140,7 @@ public class Fenetre_ecole extends JFrame{
     p_supprimer2.add(f_id2);
     p_supprimer2.add(b_supprimer);
     
-    
+    pan.add(p_infos);
     pan.add(p_ajouter1);
     pan.add(p_ajouter2);
     pan.add(p_modifier1);

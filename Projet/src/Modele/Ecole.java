@@ -12,10 +12,14 @@ import java.sql.SQLException;
  * @author sarahkardache
  */
 public class Ecole {
-    private int id_Ecole;
-    private String nom_Ecole;
+    public int id_Ecole;
+    public String nom_Ecole;
     
       //constructeur avec parametre
+    public Ecole()
+    {
+        
+    }
     public Ecole(int id_Ecole, String nom_Ecole)
     {
         this.id_Ecole=id_Ecole;
