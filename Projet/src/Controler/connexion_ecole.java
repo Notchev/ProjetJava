@@ -19,7 +19,7 @@ import java.util.Scanner;
  * 
  * @author segado
  */
-public class Connexion {
+public class connexion_ecole {
 
     /**
      * Attributs prives : connexion JDBC, statement, ordre requete et resultat
@@ -53,12 +53,12 @@ public class Connexion {
      * 
      */
     
-    public Connexion()
+    public connexion_ecole()
     {
        //constructeur par defaut trop cool 
     }
     
-    public Connexion(String nameDatabase, String loginDatabase, String passwordDatabase) throws SQLException, ClassNotFoundException {
+    public connexion_ecole(String nameDatabase, String loginDatabase, String passwordDatabase) throws SQLException, ClassNotFoundException {
         // chargement driver "com.mysql.jdbc.Driver"
         Class.forName("com.mysql.jdbc.Driver");
 
@@ -222,19 +222,14 @@ public class Connexion {
         stmt.executeUpdate(requeteMaj);
     }
     
-    public void Ajout()
+    public void AjoutEcole(int id, String nom)
 	{
-            int id = 0 ; 
-            String nom = null;
-            Scanner scan = new Scanner(System.in);
+           
             ///ATTENTION IL FAUT DEMANDER AUX MECS COMMENT ON FAIT PARCE QUE L'AJOUT VA FALLOIR LE FAIRE PAR TABLE HE MERCE.
                 try {
                     
                    // stmt = conn.createStatement();
-                System.out.println("Entrez l'id de l'ecole :");
-                id = scan.nextInt();
-                System.out.println("Entrez le nom de l'ecole :");
-                nom = scan.next();
+               
 		String requete ="INSERT INTO Ecole(id_ecole, nom_ecole) VALUES(";
                 requete += id;
                 requete +=",'";
@@ -243,51 +238,57 @@ public class Connexion {
                 System.out.println(requete);
 
                 
-                stmt.executeUpdate(requete);
+                    int executeUpdate = stmt.executeUpdate(requete);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 }
-    
-      public void AjoutBulletin()
+      public void SupprimerEcole(int id)
 	{
-            int id = 0 ; 
-            String appreciation = null;
-            Scanner scan = new Scanner(System.in);
+           
             ///ATTENTION IL FAUT DEMANDER AUX MECS COMMENT ON FAIT PARCE QUE L'AJOUT VA FALLOIR LE FAIRE PAR TABLE HE MERCE.
                 try {
                     
                    // stmt = conn.createStatement();
-                System.out.println("Entrez l'id du bulletin:");
-                id = scan.nextInt();
-                System.out.println("Entrez l'appréciation :");
-                appreciation = scan.next();
-		String requete ="INSERT INTO Bulletin(id_Bulletin, appreciation) VALUES(";
+                               System.out.println("ok");
+
+		String requete ="DELETE FROM Ecole WHERE id_ecole=";
+                          System.out.println("lol");
+
                 requete += id;
-                requete +=",'";
-                requete += appreciation;
-                requete += "')";
                 System.out.println(requete);
 
                 
-                stmt.executeUpdate(requete);
+                    int executeUpdate = stmt.executeUpdate(requete);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 }
-
-public void Supprimer()
-{
-///ATTENTION IL FAUT DEMANDER AUX MECS COMMENT ON FAIT PARCE QUE L'AJOUT VA FALLOIR LE FAIRE PAR TABLE HE MERCE.
+      
+      public void ModifierEcole(int id, String nom)
+	{
+           
+            ///ATTENTION IL FAUT DEMANDER AUX MECS COMMENT ON FAIT PARCE QUE L'AJOUT VA FALLOIR LE FAIRE PAR TABLE HE MERCE.
                 try {
+                    
                    // stmt = conn.createStatement();
+                               System.out.println("ok");
+                               
+		String requete;
+                    requete = "UPDATE Ecole SET nom_ecole =' ";
+                    requete+= nom;
+                    requete += "' WHERE id_ecole = " ; 
+            
+                          System.out.println("lol");
+
+                requete += id;
+                System.out.println(requete);
                 
- 
-String requete= "DELETE FROM Ecole (id_ecole,nom_ecole) WHERE (id_ecole==1)";
-	
-		stmt.executeUpdate(requete);
+                int executeUpdate = stmt.executeUpdate(requete);
+                    
+          
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

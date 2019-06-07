@@ -27,6 +27,10 @@ import javax.swing.JFrame;
 import Vue.Fond;
 import Vue.Bouton;
 import java.sql.SQLException;
+import Modele.Ecole ; 
+import Vue.Fenetre_ecole;
+import Controler.connexion_ecole;
+
 /**
  *
  * @author sarahkardache
@@ -37,14 +41,28 @@ public class Test_projet {
 
     /**
      * @param args the command line arguments
+     * @throws java.sql.SQLException
      * @throws java.lang.ClassNotFoundException
      */
       @SuppressWarnings("empty-statement")
-    public static void main(String[] args) 
+      
+    public static void main(String[] args) throws SQLException, ClassNotFoundException 
     {
-          try {
+        Fenetre_ecole fen = new Fenetre_ecole();
+
+
+        
+         /* try {
+             ArrayList<Ecole> NosEcoles = new ArrayList() ;
+             
+           
+            
             int reponse=0;
+            int id ; 
+            String nom ; 
             Connexion connection = new Connexion("Ecole","root","root");
+          connexion_ecole ecoleco = new connexion_ecole("Ecole","root","root");
+
             ArrayList essai = new ArrayList();
             essai = connection.remplirChampsTable("Ecole");
             for (int i = 0; i < essai.size(); i++) {
@@ -52,15 +70,19 @@ public class Test_projet {
             System.out.println("Voulez-vous ajouter une ecole ?  ");
             Scanner sc = new Scanner(System.in);
             reponse = sc.nextInt();
+            System.out.println("Quelle est l'id et son nom de l'Ecole ?  ");
+            id = sc.nextInt();
+            nom = sc.next();
+            Ecole newEcole = new Ecole(id,nom); 
             if (reponse==1)
             {
-                        connection.Ajout();
+            ecoleco.AjoutEcole(id,nom);                 
             }
             if (reponse==0)
             {
                 connection.Supprimer();
             }
-        } 
+        } */
               //public Connexion(String nameDatabase, String loginDatabase, String passwordDatabase)
               // TODO code application logic here
               /* JFrame frame = new JFrame();
@@ -80,12 +102,14 @@ public class Test_projet {
               button1.setBounds(350,300,150,40);
               
               //back.add(test);
-          */        } catch (SQLException ex) {
+       /*         } catch (SQLException ex) {
               Logger.getLogger(Test_projet.class.getName()).log(Level.SEVERE, null, ex);
           } catch (ClassNotFoundException ex) {
               Logger.getLogger(Test_projet.class.getName()).log(Level.SEVERE, null, ex);
           }
-    }
+    }*/
     
 }
+}
+
 
