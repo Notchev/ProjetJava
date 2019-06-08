@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package Controler;
-
 /*
  * 
  * Librairies importées par notre groupe pour que le programme fonctionne
@@ -13,16 +12,14 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import Modele.Ecole;
-
+import Modele.Trimestre;
 /**
  *
- * Connexion a votre BDD locale ou à distance sur le serveur de l'ECE via le
- * tunnel SSH
- *
- * @author segado
+ * @author sarahkardache
  */
-public class connexion_ecole {
+public class connexion_trimestre {
+    
+
 
     /**
      * Attributs prives : connexion JDBC, statement, ordre requete et resultat
@@ -45,7 +42,7 @@ public class connexion_ecole {
      */
     public ArrayList<String> requetesMaj = new ArrayList<>();
 
-    public ArrayList<Ecole> listeEcoles = new ArrayList<>();
+    public ArrayList<Trimestre> listeTrimestres = new ArrayList<>();
 
     /**
      * Constructeur avec 3 paramètres : nom, login et password de la BDD locale
@@ -57,11 +54,11 @@ public class connexion_ecole {
      * @throws java.lang.ClassNotFoundException
      *
      */
-    public connexion_ecole() {
+    public connexion_trimestre() {
         //constructeur par defaut trop cool 
     }
 
-    public connexion_ecole(String nameDatabase, String loginDatabase, String passwordDatabase) throws SQLException, ClassNotFoundException {
+    public connexion_trimestre(String nameDatabase, String loginDatabase, String passwordDatabase) throws SQLException, ClassNotFoundException {
         // chargement driver "com.mysql.jdbc.Driver"
         Class.forName("com.mysql.jdbc.Driver");
 
@@ -75,7 +72,7 @@ public class connexion_ecole {
         stmt = conn.createStatement();
         //A AFFICHER DANS UN JFRAME 
         System.out.println("Connexion reussie");
-        Ecole E = null;
+        Trimestre T = null;
         String recup_id;
         String requete;
         String recup_tot;
@@ -88,12 +85,14 @@ public class connexion_ecole {
 
         while (rset.next()) {
 
-            E = new Ecole(rset.getInt("id_ecole"),rset.getString("nom_ecole"));
+            T = new Trimestre(rset.getInt("id"),rset.getInt("numero"),rset.getInt("debut"),rset.getInt("fin"));
            
-            System.out.println(E.id_Ecole);
-            System.out.println(E.nom_Ecole);
-           
-           listeEcoles.add(E);
+            System.out.println(T.getIdTrimestre());
+            System.out.println(T.getNumero());
+            System.out.println(T.getDebut());
+            System.out.println(T.getFin());
+
+           listeTrimestres.add(T);
            
         }
 
@@ -246,63 +245,79 @@ public class connexion_ecole {
     public void executeUpdate(String requeteMaj) throws SQLException {
         stmt.executeUpdate(requeteMaj);
     }
- /**
-     * Méthode qui ajoute une nouvelle ecole dans la BDD 
+/**
+     * Méthode qui ajoute un trimestre : requete 
      *
-     * @param AjoutEcole
-     * 
+     * @param AjoutTrimestre 
      */
-    public void AjoutEcole(int id, String nom) {
-
-        try {
-
-            // stmt = conn.createStatement();
-            String requete = "INSERT INTO Ecole(id_ecole, nom_ecole) VALUES(";
-            requete += id;
-            requete += ",'";
-            requete += nom;
-            requete += "')";
-            System.out.println(requete);
-
-            int executeUpdate = stmt.executeUpdate(requete);
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
- /**
-     * Méthode qui supprime une  ecole dans la BDD 
-     *
-     * @param SupprimerEcole
-     * 
-     */
-    public void SupprimerEcole(int id) {
+    public void AjoutTrimestre(int id, int numero, int debut, int fin, int anneescolaire) {
 
         ///ATTENTION IL FAUT DEMANDER AUX MECS COMMENT ON FAIT PARCE QUE L'AJOUT VA FALLOIR LE FAIRE PAR TABLE HE MERCE.
         try {
 
             // stmt = conn.createStatement();
-            System.out.println("ok");
-
-            String requete = "DELETE FROM Ecole WHERE id_ecole=";
-            System.out.println("lol");
-
+            String requete = "INSERT INTO Trimestre(id,numero,debut,fin)  VALUES(";
             requete += id;
+            requete += ",";
+            requete += numero;
+                   requete += ",";
+                          requete += debut;
+                        requete += ",";
+                          requete += fin;
+            requete += ")";
             System.out.println(requete);
 
             int executeUpdate = stmt.executeUpdate(requete);
+            
+             String requete2 = "INSERT INTO AnneeScolaire(id)  VALUES(";
+            requete2 += id;
+            requete2 += ")";
+            System.out.println(requete2);
+
+            int executeUpdate2 = stmt.executeUpdate(requete2);
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
- /**
-     * Méthode qui modifie une nouvelle ecole dans la BDD 
+/**
+     * Méthode qui supprime un Trimestre : requete 
      *
-     * @param ModifierEcole
-     * 
+     * @param SupprimerTrimestre
      */
-    public void ModifierEcole(int id, String nom) {
+    public void SupprimerTrimestre(int id) {
+
+        ///ATTENTION IL FAUT DEMANDER AUX MECS COMMENT ON FAIT PARCE QUE L'AJOUT VA FALLOIR LE FAIRE PAR TABLE HE MERCE.
+        try {
+
+            // stmt = conn.createStatement();
+       
+
+            String requete = "DELETE FROM Trimestre WHERE id=";
+
+            requete += id;
+            System.out.println(requete);
+
+            int executeUpdate = stmt.executeUpdate(requete);
+            
+            
+            String requete2 = "DELETE FROM AnneeScolaire WHERE id=";
+
+            requete2 += id;
+            System.out.println(requete2);
+
+            int executeUpdate2 = stmt.executeUpdate(requete2);
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+/**
+     * Méthode qui modifie un trimestre : requete 
+     *
+     * @param ModifierTrimestre
+     */
+    public void ModifierTrimestre(int id, int numero, int debut, int fin) {
 
         ///ATTENTION IL FAUT DEMANDER AUX MECS COMMENT ON FAIT PARCE QUE L'AJOUT VA FALLOIR LE FAIRE PAR TABLE HE MERCE.
         try {
@@ -311,9 +326,13 @@ public class connexion_ecole {
             System.out.println("ok");
 
             String requete;
-            requete = "UPDATE Ecole SET nom_ecole =' ";
-            requete += nom;
-            requete += "' WHERE id_ecole = ";
+            requete = "UPDATE Trimestre SET numero = ";
+            requete += numero;
+            requete += "," ; 
+            requete += debut;
+            requete+= ",";
+            requete += fin;
+            requete += " WHERE id = ";
 
             System.out.println("lol");
 
@@ -328,3 +347,5 @@ public class connexion_ecole {
         }
     }
 }
+
+

@@ -14,7 +14,8 @@ public class DetailBulletin {
 	
      private int id_DetailBulletin;
      private String appreciationdetail;
-   
+     private int Bulletin_id;
+     private int Enseignement_id;
 
     /*
     //constructeur sans parametre
@@ -26,10 +27,12 @@ public class DetailBulletin {
     }*/
 
     //constructeur avec parametre
-    public DetailBulletin (int id_DetailBulletin, String appreciationdetail)
+    public DetailBulletin (int id_DetailBulletin, String appreciationdetail, int Bulletin_id, int Enseignement_id)
     {
         this.id_DetailBulletin=id_DetailBulletin;
         this.appreciationdetail=appreciationdetail;
+        this.Bulletin_id=Bulletin_id;
+        this.Enseignement_id=Enseignement_id;
     }
 
     //******** ACCESSEURS ********
@@ -39,9 +42,19 @@ public class DetailBulletin {
         return id_DetailBulletin;
     }
 
-    public String getAppreciationdetail ()
+    public String getAppreciationDetail ()
     {
         return appreciationdetail;
+    }
+    
+    public int getId_Bulletin()
+    {
+        return Bulletin_id;
+    }
+    
+    public int getId_Enseignement()
+    {
+        return Enseignement_id;
     }
 
   

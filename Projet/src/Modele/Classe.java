@@ -44,7 +44,7 @@ public class Classe {
         return id_Classe;
     }
 
-    public String getNomclasse ()
+    public String getNomClasse ()
     {
         return nomclasse;
     }

@@ -5,6 +5,12 @@
  */
 package Controler;
 
+/**
+ *
+ * @author sarahkardache
+ */
+
+
 /*
  * 
  * Librairies importées par notre groupe pour que le programme fonctionne
@@ -13,16 +19,10 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import Modele.Ecole;
+import Modele.Evaluation;
 
-/**
- *
- * Connexion a votre BDD locale ou à distance sur le serveur de l'ECE via le
- * tunnel SSH
- *
- * @author segado
- */
-public class connexion_ecole {
+public class connexion_evaluation {
+   
 
     /**
      * Attributs prives : connexion JDBC, statement, ordre requete et resultat
@@ -45,7 +45,7 @@ public class connexion_ecole {
      */
     public ArrayList<String> requetesMaj = new ArrayList<>();
 
-    public ArrayList<Ecole> listeEcoles = new ArrayList<>();
+    public ArrayList<Evaluation> listeEvaluations = new ArrayList<>();
 
     /**
      * Constructeur avec 3 paramètres : nom, login et password de la BDD locale
@@ -57,11 +57,11 @@ public class connexion_ecole {
      * @throws java.lang.ClassNotFoundException
      *
      */
-    public connexion_ecole() {
+    public connexion_evaluation() {
         //constructeur par defaut trop cool 
     }
 
-    public connexion_ecole(String nameDatabase, String loginDatabase, String passwordDatabase) throws SQLException, ClassNotFoundException {
+    public connexion_evaluation(String nameDatabase, String loginDatabase, String passwordDatabase) throws SQLException, ClassNotFoundException {
         // chargement driver "com.mysql.jdbc.Driver"
         Class.forName("com.mysql.jdbc.Driver");
 
@@ -75,12 +75,12 @@ public class connexion_ecole {
         stmt = conn.createStatement();
         //A AFFICHER DANS UN JFRAME 
         System.out.println("Connexion reussie");
-        Ecole E = null;
+      Evaluation E = null;
         String recup_id;
         String requete;
         String recup_tot;
 
-        requete = "SELECT * FROM Ecole";
+        requete = "SELECT * FROM Evaluation";
 
         PreparedStatement preparedStatement = conn.prepareStatement(requete);
 
@@ -88,12 +88,14 @@ public class connexion_ecole {
 
         while (rset.next()) {
 
-            E = new Ecole(rset.getInt("id_ecole"),rset.getString("nom_ecole"));
+            E = new Evaluation(rset.getInt("id"),rset.getInt("DetailBulletin.id"),rset.getInt("note"),rset.getString("appreciation"));
            
-            System.out.println(E.id_Ecole);
-            System.out.println(E.nom_Ecole);
-           
-           listeEcoles.add(E);
+            System.out.println(E.getIdEvaluation());
+            System.out.println(E.getIdDetailBulletin());
+            System.out.println(E.getNote());
+            System.out.println(E.getAppreciation());
+
+           listeEvaluations.add(E);
            
         }
 
@@ -246,22 +248,23 @@ public class connexion_ecole {
     public void executeUpdate(String requeteMaj) throws SQLException {
         stmt.executeUpdate(requeteMaj);
     }
- /**
-     * Méthode qui ajoute une nouvelle ecole dans la BDD 
-     *
-     * @param AjoutEcole
-     * 
-     */
-    public void AjoutEcole(int id, String nom) {
 
+    public void AjoutEvaluation(int id, int id_detailbulletin, int note, String appreciation ) {
+
+        ///ATTENTION IL FAUT DEMANDER AUX MECS COMMENT ON FAIT PARCE QUE L'AJOUT VA FALLOIR LE FAIRE PAR TABLE HE MERCE.
         try {
 
             // stmt = conn.createStatement();
-            String requete = "INSERT INTO Ecole(id_ecole, nom_ecole) VALUES(";
+            String requete = "INSERT INTO Evaluation(id, DetailBulletin.id, note, appreciation) VALUES(";
             requete += id;
-            requete += ",'";
-            requete += nom;
-            requete += "')";
+            requete += ",";
+            requete += id_detailbulletin;
+          requete += " , ";
+           requete += note;
+           requete += ",";
+           requete += appreciation ; 
+      
+            requete += ")";
             System.out.println(requete);
 
             int executeUpdate = stmt.executeUpdate(requete);
@@ -270,22 +273,15 @@ public class connexion_ecole {
             e.printStackTrace();
         }
     }
- /**
-     * Méthode qui supprime une  ecole dans la BDD 
-     *
-     * @param SupprimerEcole
-     * 
-     */
-    public void SupprimerEcole(int id) {
+
+    public void SupprimerEvaluation(int id) {
 
         ///ATTENTION IL FAUT DEMANDER AUX MECS COMMENT ON FAIT PARCE QUE L'AJOUT VA FALLOIR LE FAIRE PAR TABLE HE MERCE.
         try {
 
             // stmt = conn.createStatement();
-            System.out.println("ok");
 
-            String requete = "DELETE FROM Ecole WHERE id_ecole=";
-            System.out.println("lol");
+            String requete = "DELETE FROM Evaluation WHERE id=";
 
             requete += id;
             System.out.println(requete);
@@ -296,32 +292,32 @@ public class connexion_ecole {
             e.printStackTrace();
         }
     }
- /**
-     * Méthode qui modifie une nouvelle ecole dans la BDD 
-     *
-     * @param ModifierEcole
-     * 
-     */
-    public void ModifierEcole(int id, String nom) {
+
+    public void ModifierEvaluation(int id, int id_bulletin, int note, String appreciation) {
 
         ///ATTENTION IL FAUT DEMANDER AUX MECS COMMENT ON FAIT PARCE QUE L'AJOUT VA FALLOIR LE FAIRE PAR TABLE HE MERCE.
         try {
-
-            // stmt = conn.createStatement();
-            System.out.println("ok");
 
             String requete;
-            requete = "UPDATE Ecole SET nom_ecole =' ";
-            requete += nom;
-            requete += "' WHERE id_ecole = ";
-
-            System.out.println("lol");
-
+            requete = "UPDATE Evaluation SET note = ";
+            requete += note;
+      requete += "WHERE id = " ; 
             requete += id;
             System.out.println(requete);
 
             int executeUpdate = stmt.executeUpdate(requete);
+            
+             String requete2;
+            requete2 = "UPDATE Evaluation SET appreciation = ";
+            requete2 += appreciation;
+      requete2 += "WHERE id = " ; 
+            requete2 += id;
+            System.out.println(requete2);
 
+            int executeUpdate2 = stmt.executeUpdate(requete2);
+
+
+            
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

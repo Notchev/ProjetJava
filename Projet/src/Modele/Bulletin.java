@@ -13,8 +13,10 @@ package Modele;
 public class Bulletin  {
      
     private int id_Bulletin;
-     private String appreciation;
-
+   
+     private int id_Trimestre;
+     private int id_Inscription;
+  private String appreciation;
 
     /*
     //constructeur sans parametre
@@ -24,12 +26,17 @@ public class Bulletin  {
     id_Trimestre = NULL;
     id_Inscription = NULL;
     }*/
-
+     public Bulletin()
+             {
+                 
+             }
     //constructeur avec parametre
-    public Bulletin(int id_Bulletin, String appreciation)
+    public Bulletin(int id_Bulletin, int id_Trimestre, int id_Inscription,String appreciation)
     {
         this.id_Bulletin=id_Bulletin;
         this.appreciation=appreciation;
+        this.id_Trimestre=id_Trimestre;
+        this.id_Inscription=id_Inscription; 
     }
 
     //******** ACCESSEURS ********
@@ -43,8 +50,16 @@ public class Bulletin  {
     {
         return appreciation;
     }
-
+    
+    public int getIdTrimestre()
+    {
+        return id_Trimestre;
+    }
    
+    public int getIdInscription()
+    {
+        return id_Inscription;
+    }
 
     //******** MUTATEURS ********
 

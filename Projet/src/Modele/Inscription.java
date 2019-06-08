@@ -11,6 +11,8 @@ package Modele;
  */
 public class Inscription {
      private int id_Inscription;
+     private int id_Classe;
+     private int id_Personne;
  
 
     /*
@@ -22,8 +24,10 @@ public class Inscription {
     }*/
 
     //constructeur avec parametre
-    public Inscription(int id_Inscription){
+    public Inscription(int id_Inscription, int id_Classe, int id_Personne){
         this.id_Inscription=id_Inscription;
+        this.id_Classe = id_Classe;
+        this.id_Personne = id_Personne;
       
     }
 
@@ -33,8 +37,14 @@ public class Inscription {
     {
         return id_Inscription;
     }
-
-
+ public int getId_Classe ()
+    {
+        return id_Classe;
+    }
+  public int getId_Personne ()
+    {
+        return id_Personne;
+    }
 
     //******** MUTATEURS ********
 

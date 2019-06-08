@@ -29,6 +29,7 @@ import Vue.Bouton;
 import java.sql.SQLException;
 import Modele.Ecole ; 
 import Vue.Fenetre_ecole;
+import Vue.Fenetre;
 import Controler.connexion_ecole;
 
 /**
@@ -48,8 +49,12 @@ public class Test_projet {
       
     public static void main(String[] args) throws SQLException, ClassNotFoundException 
     {
-        Fenetre_ecole fen = new Fenetre_ecole();
+       // Fenetre_ecole fen = new Fenetre_ecole();
+      
+        System.out.println("lol1");		
 
+        Fenetre fen = new Fenetre();
+        
 
         
          /* try {

@@ -34,7 +34,7 @@ public class Discipline {
         return id_Discipline;
     }
 
-    public String getNomdiscipline ()
+    public String getNomDiscipline ()
     {
         return nomdiscipline;
     }

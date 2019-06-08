@@ -53,11 +53,16 @@ public class Connexion {
      * 
      */
     
+    /**
+     * Constructeur par defaut
+     */
     public Connexion()
     {
        //constructeur par defaut trop cool 
     }
-    
+    /**
+     * Constructeur surchargé
+     */
     public Connexion(String nameDatabase, String loginDatabase, String passwordDatabase) throws SQLException, ClassNotFoundException {
         // chargement driver "com.mysql.jdbc.Driver"
         Class.forName("com.mysql.jdbc.Driver");
@@ -222,6 +227,12 @@ public class Connexion {
         stmt.executeUpdate(requeteMaj);
     }
     
+    /**
+     * Méthode qui ajoute une nou
+     * Requete ajout
+     *
+     * @param requete
+     */
     public void Ajout()
 	{
             int id = 0 ; 

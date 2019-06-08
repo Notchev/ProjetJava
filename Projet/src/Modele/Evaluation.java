@@ -12,7 +12,9 @@ package Modele;
 public class Evaluation  {
      
      private int id_Evaluation;
-
+     private int id_DetailBulletin;
+     private int note;
+     private String appreciation;
 
     /*
     //constructeur sans parametre
@@ -24,11 +26,13 @@ public class Evaluation  {
     }*/
 
     //constructeur avec parametre
-    public Evaluation(int id_Evaluation)
+    public Evaluation(int id_Evaluation, int id_DetailBulletin, int note, String appreciation)
     {
-    
 
         this.id_Evaluation=id_Evaluation;
+        this.id_DetailBulletin=id_DetailBulletin;
+        this.note=note;
+        this.appreciation=appreciation;
       
     }
 
@@ -39,6 +43,20 @@ public class Evaluation  {
         return id_Evaluation;
     }
 
+       public int getIdDetailBulletin ()
+    {
+        return id_DetailBulletin;
+    }
+       
+          public int getNote ()
+    {
+        return id_Evaluation;
+    }
+          
+     public String getAppreciation ()
+    {
+        return appreciation;
+    }
   
 
     //******** MUTATEURS ********
